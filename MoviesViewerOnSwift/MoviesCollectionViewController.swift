@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import Alamofire
 
 class MoviesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        Alamofire.request(NetworkFetcher.Router.Latest).validate().responseJSON {
+            (_, _, JSON, error) in
+            
+            println(JSON)
+        }
     }
 
     override func didReceiveMemoryWarning() {
