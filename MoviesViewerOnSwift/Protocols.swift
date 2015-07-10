@@ -8,6 +8,10 @@
 
 import Foundation
 
+@objc public protocol ResponseCollectionSerializable {
+    static func collection(#response: NSHTTPURLResponse, representation: AnyObject) -> [Self]
+}
+
 @objc public protocol ResponseObjectSerializable {
     init(response: NSHTTPURLResponse, representation: AnyObject)
 }

@@ -22,7 +22,11 @@ class Movie: NSObject, ResponseObjectSerializable {
         self.id = representation.valueForKeyPath("id") as! Int
         self.title = representation.valueForKeyPath("title") as! String
         
-        self.releaseDate = representation.valueForKeyPath("title") as? NSDate
+        if let releasedDateString = representation.valueForKeyPath("release_date") as? String {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-DD"
+            self.releaseDate = dateFormatter.dateFromString(releasedDateString)
+        }
         self.posterPath = representation.valueForKeyPath("poster_path") as? String
         self.overview = representation.valueForKeyPath("overview") as? String
     }
