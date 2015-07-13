@@ -38,6 +38,8 @@ class MoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         loadMovies(.Popular(page: 1))
     }
     
@@ -62,10 +64,23 @@ class MoviesViewController: UIViewController {
         })
     }
     
+    @IBAction func switchMoviesType(sender: AnyObject) {
+        
+        let actionSheet = UIActionSheet(title: "Movies list",
+            delegate: self,
+            cancelButtonTitle: "Cancel",
+            destructiveButtonTitle: nil)
+        actionSheet.addButtonWithTitle("Popular")
+        actionSheet.addButtonWithTitle("Now playing")
+        actionSheet.addButtonWithTitle("Up coming")
+        actionSheet.actionSheetStyle = UIActionSheetStyle.BlackTranslucent
+        
+        actionSheet.showFromBarButtonItem(self.navigationItem.rightBarButtonItem, animated: true)
+    }
     
     // MARK - private - load movies
     
-    private func loadMovies(type: MoviesServiceApi.Router, forPage page: Int = 1) {
+    private func loadMovies(type: MoviesServiceApi.Router) {
         
         moviesType = type
         
@@ -131,6 +146,37 @@ class MoviesViewController: UIViewController {
             
             loadMovies(moviesType)
         }
+    }
+}
+
+
+extension MoviesViewController : UIActionSheetDelegate {
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        
+        pageToload = 1
+        
+        switch (buttonIndex) {
+        case 0: // Cancel
+            break
+        case 1: // Popular
+            navigationItem.rightBarButtonItem?.title = "Popular"
+            moviesType = .Popular(page: pageToload)
+            break
+        case 2: // NowPlaying
+            navigationItem.rightBarButtonItem?.title = "Now playing"
+            moviesType = .NowPlaying(page: pageToload)
+            break
+        case 3: // UpComing
+            moviesType = .UpComing(page: pageToload)
+            navigationItem.rightBarButtonItem?.title = "Up Coming"
+            break
+        default:
+            break
+        }
+        
+        self.moviesList = nil
+        self.loadMovies(moviesType)
     }
 }
 
