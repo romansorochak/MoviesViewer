@@ -17,54 +17,6 @@
             endingLineNumber = "18"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MoviesViewerOnSwift.MoviesCollectionViewController.viewDidLoad (MoviesViewerOnSwift.MoviesCollectionViewController)() -&gt; ()"
-                  moduleName = "MoviesViewerOnSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/test/Projects/iOS/MoviesViewerOnSwift/MoviesViewerOnSwift/MoviesCollectionViewController.swift"
-                  timestampString = "458245516.522793"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "108">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MoviesViewerOnSwift.MoviesCollectionViewController.(viewDidLoad (MoviesViewerOnSwift.MoviesCollectionViewController) -&gt; () -&gt; ()).(closure #1)"
-                  moduleName = "MoviesViewerOnSwift"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/test/Projects/iOS/MoviesViewerOnSwift/MoviesViewerOnSwift/MoviesCollectionViewController.swift"
-                  timestampString = "458245516.523087"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MoviesViewerOnSwift/MoviesCollectionViewController.swift"
-            timestampString = "458245408.868487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -97,6 +49,22 @@
             endingLineNumber = "34"
             landmarkName = "NetworkFetcher"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoviesViewerOnSwift/AlamofireExtension.swift"
+            timestampString = "458479396.120254"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "responseObject(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

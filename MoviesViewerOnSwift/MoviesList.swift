@@ -16,9 +16,15 @@ final class MoviesList : NSObject, ResponseObjectSerializable {
         
         self.movies = [Movie]()
         
-        for movie in representation.valueForKey("results") as! NSArray {
+        if let movies = representation.valueForKey("results") as? NSArray {
             
-            self.movies.append(Movie(response: response, representation: movie))
+            for movie in movies {
+                
+                self.movies.append(Movie(response: response, representation: movie))
+            }
+        } else {
+            
+            self.movies.append(Movie(response: response, representation: representation))
         }
     }
 }

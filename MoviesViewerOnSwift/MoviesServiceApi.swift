@@ -13,18 +13,10 @@ class MoviesServiceApi {
     
     enum Router: URLRequestConvertible {
         
-        enum ImageSize: String {
-            case Small = "/w150"
-            case Large = "/w500"
-        }
-        
         private static let API_KEY = "api_key"
         private static let PAGE = "page"
         
         private static let baseURLString = "http://api.themoviedb.org/3"
-        private static let baseImageURLString = "http://image.tmdb.org/t/p"
-        
-        private static let apiKeyValue = "68771b3f5a97a2dc0ab330ba00210532"
         
         case Latest
         case NowPlaying(page: Int)
@@ -32,14 +24,12 @@ class MoviesServiceApi {
         case UpComing(page: Int)
         case Movie(id: Int)
         
-        case Image (imagePath: String, size: ImageSize)
-        
         var URLRequest: NSURLRequest {
             let (baseURLString: String, path: String, parameters: [String: AnyObject]) = {
                 
                 var baseURLString: String = Router.baseURLString
                 var path: String!
-                var params: [String: String] = [Router.API_KEY : Router.apiKeyValue]
+                var params: [String: String] = [Router.API_KEY : Constants.apiKeyValue]
                 
                 switch self {
                 case .Latest:
@@ -47,22 +37,18 @@ class MoviesServiceApi {
                     break
                 case .NowPlaying (let page):
                     path = "/movie/now_playing"
-                    params = [Router.API_KEY : Router.apiKeyValue, Router.PAGE : String(page)]
+                    params = [Router.API_KEY : Constants.apiKeyValue, Router.PAGE : String(page)]
                     break
                 case .Popular (let page):
                     path = "/movie/popular"
-                    params = [Router.API_KEY : Router.apiKeyValue, Router.PAGE : String(page)]
+                    params = [Router.API_KEY : Constants.apiKeyValue, Router.PAGE : String(page)]
                     break
                 case .UpComing (let page):
                     path = "/movie/upcoming"
-                    params = [Router.API_KEY : Router.apiKeyValue, Router.PAGE : String(page)]
+                    params = [Router.API_KEY : Constants.apiKeyValue, Router.PAGE : String(page)]
                     break
                 case .Movie (let id):
                     path = "/movie/\(id)"
-                    break
-                case .Image (let imagePath, let size):
-                    baseURLString = Router.baseImageURLString
-                    path = size.rawValue + imagePath
                     break
                 }
                 
@@ -74,6 +60,15 @@ class MoviesServiceApi {
             let encoding = Alamofire.ParameterEncoding.URL
             
             return encoding.encode(URLRequest, parameters: parameters).0
+        }
+    }
+    
+    
+    class func loadMovies(type: Router, completion: (moviesList: MoviesList!, error: NSError!)->Void) {
+        
+        Alamofire.request(type).validate().responseObject { (_, _, moviesList: MoviesList?, error) -> Void in
+            
+            completion(moviesList: moviesList, error: error)
         }
     }
 }
