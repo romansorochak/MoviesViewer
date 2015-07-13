@@ -11,6 +11,8 @@ import Alamofire
 
 class MoviesImageLoader {
     
+    private static let imageCache = NSCache()
+    
     enum Router: URLRequestConvertible {
         
         private static let API_KEY = "api_key"
@@ -55,8 +57,18 @@ class MoviesImageLoader {
                 return nil
             }
             
+            if let image = self.imageCache.objectForKey(path!) as? UIImage {
+            
+                println("imageCache - \(path)")
+                
+                completion(image: image, error: nil)
+                return nil
+            }
+            
             return Alamofire.request(Router.Image(imagePath: path!, size: size)).validate().responseImage {
                 (_, _, image, error) -> Void in
+                
+                self.imageCache.setObject(image!, forKey: path!)
                 
                 completion(image: image, error: error)
             }

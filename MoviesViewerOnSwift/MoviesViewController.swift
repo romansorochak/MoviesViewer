@@ -13,13 +13,15 @@ class MoviesViewController: UIViewController {
     
     private struct Constants {
         
-        static let MovieCellId = "MovieTableViewCell"
+        static let MovieTableViewCellId = "MovieTableViewCell"
+        static let MovieCollectionViewCellId = "MovieCollectionViewCell"
     }
     
     
     // MARK - outlers
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     // MARK - ivars
@@ -27,6 +29,8 @@ class MoviesViewController: UIViewController {
     var moviesList: MoviesList!
     var pageToload: Int = 1
     var moviesType: MoviesServiceApi.Router = .Latest
+    
+    var isTableViewShowed: Bool = true
     
     
     // MARK - life cycle
@@ -43,9 +47,25 @@ class MoviesViewController: UIViewController {
     }
     
     
-    // MARK - private
+    // MARK - NavigationBar
     
-    private func loadMovies(type: MoviesServiceApi.Router) {
+    @IBAction func switchPresentetion(sender: UIBarButtonItem) {
+        
+        isTableViewShowed = !isTableViewShowed
+        
+        self.navigationItem.leftBarButtonItem?.title = isTableViewShowed ? "Table" : "Collection"
+        
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            
+            self.tableView.alpha = self.isTableViewShowed ? 1 : 0
+            self.collectionView.alpha = self.isTableViewShowed ? 0 : 1
+        })
+    }
+    
+    
+    // MARK - private - load movies
+    
+    private func loadMovies(type: MoviesServiceApi.Router, forPage page: Int = 1) {
         
         moviesType = type
         
@@ -54,12 +74,27 @@ class MoviesViewController: UIViewController {
                 
                 if error == nil {
                     
-                    self.moviesList = moviesList
-                    self.tableView.reloadData()
-                    
-                    for movie in moviesList.movies {
+                    if self.pageToload == 1 {
                         
-                        println("\(movie.id) - \(movie.title)")
+                        self.moviesList = moviesList
+                        
+                        self.tableView.reloadData()
+                        self.collectionView.reloadData()
+                    } else {
+                        
+                        let rows = self.moviesList.movies.count
+                        let additionalRows = moviesList.movies.count
+                        
+                        var indexPaths = [NSIndexPath]()
+                        for var i: Int = 0; i < additionalRows; i++ {
+                            
+                            indexPaths.append(NSIndexPath(forRow: rows + i, inSection: 0))
+                        }
+                        
+                        self.moviesList.movies += moviesList.movies
+                        
+                        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
+                        self.collectionView.insertItemsAtIndexPaths(indexPaths)
                     }
                 } else {
                     
@@ -67,7 +102,38 @@ class MoviesViewController: UIViewController {
                 }
         })
     }
+    
+    private func loadMoreMoviesIfNeedWith(indexPath: NSIndexPath) {
+        
+        println("indexPath.row - \(indexPath.row)")
+        println(self.moviesList.movies.count - 1)
+        
+        if indexPath.row == self.moviesList.movies.count - 1 {
+            
+            pageToload++
+            
+            switch moviesType {
+            case .Latest:
+                moviesType = .Latest
+                break
+            case .NowPlaying(page: pageToload-1):
+                moviesType = .NowPlaying(page: pageToload)
+                break
+            case .Popular(page: pageToload-1):
+                moviesType = .Popular(page: pageToload)
+                break
+            case .UpComing(page: pageToload-1):
+                moviesType = .UpComing(page: pageToload)
+                break
+            default:
+                break
+            }
+            
+            loadMovies(moviesType)
+        }
+    }
 }
+
 
 extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
@@ -88,7 +154,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.MovieCellId, forIndexPath: indexPath) as! MovieTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.MovieTableViewCellId, forIndexPath: indexPath) as! MovieTableViewCell
         
         let movie = moviesList.movies[indexPath.row]
         
@@ -97,5 +163,35 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         cell.loadThumbnail(movie.posterPath)
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        loadMoreMoviesIfNeedWith(indexPath)
+    }
+}
+
+
+extension MoviesViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return moviesList == nil ? 0 : moviesList.movies.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.MovieCollectionViewCellId, forIndexPath: indexPath) as! MovieCollectionViewCell
+        
+        let movie = moviesList.movies[indexPath.row]
+        
+        cell.loadThumbnail(movie.posterPath)
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        
+        loadMoreMoviesIfNeedWith(indexPath)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  MovieTableViewCell.swift
+//  MovieCollectionCell.swift
 //  MoviesViewerOnSwift
 //
 //  Created by RomanSorochak on 13.07.15.
@@ -9,27 +9,27 @@
 import UIKit
 import Alamofire
 
-class MovieTableViewCell : UITableViewCell {
+class MovieCollectionViewCell : UICollectionViewCell {
     
     private var imageRequest: Request?
     
-    @IBOutlet weak var movieThaumbnailImageView: UIImageView!
-    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var movieThumbnailImageView: UIImageView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.movieThaumbnailImageView.layer.cornerRadius = 5
+        self.movieThumbnailImageView.layer.cornerRadius = 5
         
-        self.movieThaumbnailImageView.layer.borderWidth = 1
-        self.movieThaumbnailImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        self.movieThumbnailImageView.layer.borderWidth = 1
+        self.movieThumbnailImageView.layer.borderColor = UIColor.whiteColor().CGColor
         
-        self.movieThaumbnailImageView.clipsToBounds = true
+        self.movieThumbnailImageView.clipsToBounds = true
     }
     
     func loadThumbnail(imagePath: String?) {
         
-        movieThaumbnailImageView.image = nil
+        movieThumbnailImageView.image = nil
         imageRequest?.cancel()
         
         imageRequest = MoviesImageLoader.loadImageForMoviePath(imagePath, size: .Small,
@@ -37,7 +37,7 @@ class MovieTableViewCell : UITableViewCell {
                 
                 if error == nil {
                     
-                    self.movieThaumbnailImageView.image = image
+                    self.movieThumbnailImageView.image = image
                 } else {
                     
                     println("error = \(error)")
