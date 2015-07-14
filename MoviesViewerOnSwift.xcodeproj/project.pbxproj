@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B4EF8A86C045FCD6ABE146B3 /* Pods_MoviesViewerOnSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 742CB92BD65B83199BC8A83D /* Pods_MoviesViewerOnSwift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C66010581B552FBD007C15A5 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66010571B552FBD007C15A5 /* SDWebImage.framework */; };
+		C660105A1B5531A9007C15A5 /* MoviesImageCashedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66010591B5531A9007C15A5 /* MoviesImageCashedLoader.swift */; };
 		C67EF1141B53F7AE006C738B /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67EF1131B53F7AE006C738B /* MovieCollectionViewCell.swift */; };
 		C6C9E3AF1B53D1E3003FF4C3 /* MoviesImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C9E3AE1B53D1E3003FF4C3 /* MoviesImageLoader.swift */; };
 		C6C9E3B11B53D292003FF4C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C9E3B01B53D292003FF4C3 /* Constants.swift */; };
@@ -39,6 +41,8 @@
 		2AB54F1E9A24D7B610B7B371 /* Pods-MoviesViewerOnSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesViewerOnSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoviesViewerOnSwift/Pods-MoviesViewerOnSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		42F89E3C7F4152AA40450244 /* Pods-MoviesViewerOnSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesViewerOnSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoviesViewerOnSwift/Pods-MoviesViewerOnSwift.release.xcconfig"; sourceTree = "<group>"; };
 		742CB92BD65B83199BC8A83D /* Pods_MoviesViewerOnSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoviesViewerOnSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C66010571B552FBD007C15A5 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "Pods/../build/Debug-iphoneos/Pods-MoviesViewerOnSwift/SDWebImage.framework"; sourceTree = "<group>"; };
+		C66010591B5531A9007C15A5 /* MoviesImageCashedLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesImageCashedLoader.swift; sourceTree = "<group>"; };
 		C67EF1131B53F7AE006C738B /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		C6C9E3AE1B53D1E3003FF4C3 /* MoviesImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesImageLoader.swift; sourceTree = "<group>"; };
 		C6C9E3B01B53D292003FF4C3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C66010581B552FBD007C15A5 /* SDWebImage.framework in Frameworks */,
 				B4EF8A86C045FCD6ABE146B3 /* Pods_MoviesViewerOnSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +87,7 @@
 		8F6F46AF46B74A5C1241C8FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C66010571B552FBD007C15A5 /* SDWebImage.framework */,
 				742CB92BD65B83199BC8A83D /* Pods_MoviesViewerOnSwift.framework */,
 			);
 			name = Frameworks;
@@ -188,6 +194,7 @@
 				C6C9E3B01B53D292003FF4C3 /* Constants.swift */,
 				C6FCCF8B1B5039600087481D /* MoviesServiceApi.swift */,
 				C6C9E3AE1B53D1E3003FF4C3 /* MoviesImageLoader.swift */,
+				C66010591B5531A9007C15A5 /* MoviesImageCashedLoader.swift */,
 			);
 			name = MoviesService;
 			sourceTree = "<group>";
@@ -380,6 +387,7 @@
 				EDD993391B5063D2006C0311 /* Protocols.swift in Sources */,
 				EDD993341B50623B006C0311 /* Movie.swift in Sources */,
 				C6FCCF661B50376C0087481D /* AppDelegate.swift in Sources */,
+				C660105A1B5531A9007C15A5 /* MoviesImageCashedLoader.swift in Sources */,
 				C6C9E3AF1B53D1E3003FF4C3 /* MoviesImageLoader.swift in Sources */,
 				C6C9E3B11B53D292003FF4C3 /* Constants.swift in Sources */,
 			);
@@ -512,6 +520,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-MoviesViewerOnSwift",
+				);
 				INFOPLIST_FILE = MoviesViewerOnSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -525,6 +537,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods-MoviesViewerOnSwift",
+				);
 				INFOPLIST_FILE = MoviesViewerOnSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

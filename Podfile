@@ -5,6 +5,7 @@ use_frameworks!
 target 'MoviesViewerOnSwift' do
 
 pod 'Alamofire', '~> 1.2'
+pod 'SDWebImage', '~>3.7'
 
 end
 

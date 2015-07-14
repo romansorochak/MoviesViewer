@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FCAE65EF0D29974E55469332"
+               BlueprintIdentifier = "0A7B5F8A6AC90294FFD9A55E"
                BuildableName = "Pods_MoviesViewerOnSwift.framework"
                BlueprintName = "Pods-MoviesViewerOnSwift"
                ReferencedContainer = "container:Pods.xcodeproj">

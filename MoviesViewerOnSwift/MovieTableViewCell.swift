@@ -7,11 +7,13 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
+import SDWebImage
 
 class MovieTableViewCell : UITableViewCell {
     
-    private var imageRequest: Request?
+    //    private var imageRequest: Request?
+    private var imageRequest: SDWebImageOperation?
     
     @IBOutlet weak var movieThaumbnailImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
@@ -32,8 +34,20 @@ class MovieTableViewCell : UITableViewCell {
         movieThaumbnailImageView.image = nil
         imageRequest?.cancel()
         
-        imageRequest = MoviesImageLoader.loadImageForMoviePath(imagePath, size: .Small,
-            completion: { (image, error) -> Void in
+        //        imageRequest = MoviesImageLoader.loadImageForMoviePath(imagePath, size: .Small,
+        //            completion: { (image, error) -> Void in
+        //
+        //                if error == nil {
+        //
+        //                    self.movieThaumbnailImageView.image = image
+        //                } else {
+        //
+        //                    println("error = \(error)")
+        //                }
+        //        })
+        
+        imageRequest = MoviesImageCashedLoader.loadAndCasheImageForMoviePath(imagePath,
+            size: .Small) { (image, error) -> Void in
                 
                 if error == nil {
                     
@@ -42,6 +56,7 @@ class MovieTableViewCell : UITableViewCell {
                     
                     println("error = \(error)")
                 }
-        })
+                
+        }
     }
 }
